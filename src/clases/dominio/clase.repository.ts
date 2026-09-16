@@ -1,4 +1,4 @@
-import { Clase } from "../clases.service.js";
+import { Clase } from "./entidades.js";
 import { CrearClaseDTO } from "../dto/crear-clase.dto.js";
 import { ActualizarClaseDTO } from "../dto/editar-clase.dto.js";
 

@@ -2,30 +2,29 @@ Ariel Eduardo Borbon Izaguirre 252116
 
 Preguntas:
 
-¿qué pasaría si el módulo no quedara registrado en la raíz?
-NestJS lo ignoraria, lo que hiciera que las peticiones dieran Error 404
+¿por qué esta interfaz no menciona Express, NestJS ni memoria?
+porque la interfaz es del dominio y esta no debe estar conectada a ninguna BD para que se pueda escalar y reutilizar
 
 
 
-¿por qué los métodos del repositorio devuelven promesas si los datos van a estar en memoria?
-Para estar preparados ante el cambio de BD, aunque actualmente tengamos los datos a la mano, es bueno mantenerlo con promesas siempre para cuando cambiemos a una BD real como MySQL, asi cuando hagamos el cambio no tengamos que cambiar nada y dejemos intacto el service
+¿qué palabra de esa clase es la que promete cumplir la interfaz del paso anterior?
+"Implements" ya que al decir implements MiembroRepository se crea el contrato y TS obliga a implementar todos los metodos de la interfaz
 
 
 
-¿qué error apareció al cambiar a la interfaz, y por qué la clase sí se había resuelto sola?
-El error salio porque las interfaces no existen cuando se ejecuta el codigo, TS las elimina al pasarse a JS, asi que NestJS no sabe encontrarlas, pero las clases si sobreviven a la compilacion y se quedan en JS, por lo que si las guardamos como Token se pueden usar 
+
+¿por qué este archivo no sabe qué es una petición HTTP?
+porque el service se encarga de manejar la logica junto con el repositorio para procesar datos, todo lo de rutas / requests y codigos de estado se encarga el controller
 
 
 
-¿por qué el servicio necesita un token para el repositorio, pero el controlador no lo necesita para el servicio?
-Porque como pasamos la clase directamente, el token es la misma clase, pero como lo que pasamos para el repositorio es una interfaz, ahi si necesitamos un token para esta para que no se desintegre al momento de compilar y que se pase a JS
+
+
+¿por qué el Service se inyecta sin token en el Controller, y el repositorio sí necesita uno?
+porque MiembrosService es una clase en si, pero el repositorio se define como interfaz y al ser interfaz en tiempo de ejecucion (en JS) estas se borran, por eso ocupamos un token para decirle a NestJS que clase en especifico se debe instanciar cuando se solicite
 
 
 
-¿cuál es la diferencia entre un 400 y un 409?
-un 400 significa que el cliente envio informacion de manera incorrecta, como un error de sintaxis y el 409 es una peticion bien escrita pero que choca con una regla de negocio, por ejemplo inscribir a una persona mas a una clase llena
 
-
-
-¿por qué cambió el código de estado de esa última petición?
-paso de 409 a 201 porque cambiamos el espacio de la clase, como usamos un delete se abrio un espacio, y cuando mandamos otro post ahora con 1 puesto libre se paso la regla de negocio, haciendo que la peticion pasara exitosamente con un 201 created
+¿qué prueba, en los hechos, que agregar Miembros no rompió nada de Inscripciones?
+Cuando ejecutamos el servidor con npm run start:dev y revisamos los endpoints de inscripciones, estas siguen funcionando igual que siempre, ya que como estamos trabajando en modulos esta logica queda aislada y segura a los cambios que hacemos en este modulo

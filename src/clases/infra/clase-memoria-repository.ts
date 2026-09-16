@@ -5,7 +5,7 @@ import {CrearClaseDTO} from '../dto/crear-clase.dto.js';
 import {ActualizarClaseDTO} from '../dto/editar-clase.dto.js';
 
 @Injectable()
-export class claseMemoriaRepository implements ClaseRepository {
+export class ClaseMemoriaRepository implements ClaseRepository {
     private clases: Clase[] = [
         {id: 1, nombre: 'Yoga'},
         {id: 2, nombre: 'Spinning'},
